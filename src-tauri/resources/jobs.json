@@ -1,0 +1,207 @@
+[
+    {
+        "id": 0,
+        "name": "冒险者",
+        "gauge": "unknown"
+    },
+    {
+        "id": 1,
+        "name": "剑术师",
+        "gauge": "tank"
+    },
+    {
+        "id": 2,
+        "name": "格斗家",
+        "gauge": "melee"
+    },
+    {
+        "id": 3,
+        "name": "斧术师",
+        "gauge": "tank"
+    },
+    {
+        "id": 4,
+        "name": "枪术师",
+        "gauge": "melee"
+    },
+    {
+        "id": 5,
+        "name": "弓箭手",
+        "gauge": "physical"
+    },
+    {
+        "id": 6,
+        "name": "幻术师",
+        "gauge": "healer"
+    },
+    {
+        "id": 7,
+        "name": "咒术师",
+        "gauge": "magical"
+    },
+    {
+        "id": 8,
+        "name": "刻木匠",
+        "gauge": "unknown"
+    },
+    {
+        "id": 9,
+        "name": "锻铁匠",
+        "gauge": "unknown"
+    },
+    {
+        "id": 10,
+        "name": "铸甲匠",
+        "gauge": "unknown"
+    },
+    {
+        "id": 11,
+        "name": "雕金匠",
+        "gauge": "unknown"
+    },
+    {
+        "id": 12,
+        "name": "制革匠",
+        "gauge": "unknown"
+    },
+    {
+        "id": 13,
+        "name": "裁衣匠",
+        "gauge": "unknown"
+    },
+    {
+        "id": 14,
+        "name": "炼金术士",
+        "gauge": "unknown"
+    },
+    {
+        "id": 15,
+        "name": "烹调师",
+        "gauge": "unknown"
+    },
+    {
+        "id": 16,
+        "name": "采矿工",
+        "gauge": "unknown"
+    },
+    {
+        "id": 17,
+        "name": "园艺工",
+        "gauge": "unknown"
+    },
+    {
+        "id": 18,
+        "name": "捕鱼人",
+        "gauge": "unknown"
+    },
+    {
+        "id": 19,
+        "name": "骑士",
+        "gauge": "tank"
+    },
+    {
+        "id": 20,
+        "name": "武僧",
+        "gauge": "melee"
+    },
+    {
+        "id": 21,
+        "name": "战士",
+        "gauge": "tank"
+    },
+    {
+        "id": 22,
+        "name": "龙骑士",
+        "gauge": "melee"
+    },
+    {
+        "id": 23,
+        "name": "吟游诗人",
+        "gauge": "physical"
+    },
+    {
+        "id": 24,
+        "name": "白魔法师",
+        "gauge": "healer"
+    },
+    {
+        "id": 25,
+        "name": "黑魔法师",
+        "gauge": "magical"
+    },
+    {
+        "id": 26,
+        "name": "秘术师",
+        "gauge": "magical"
+    },
+    {
+        "id": 27,
+        "name": "召唤师",
+        "gauge": "magical"
+    },
+    {
+        "id": 28,
+        "name": "学者",
+        "gauge": "healer"
+    },
+    {
+        "id": 29,
+        "name": "双剑师",
+        "gauge": "melee"
+    },
+    {
+        "id": 30,
+        "name": "忍者",
+        "gauge": "melee"
+    },
+    {
+        "id": 31,
+        "name": "机工士",
+        "gauge": "physical"
+    },
+    {
+        "id": 32,
+        "name": "暗黑骑士",
+        "gauge": "tank"
+    },
+    {
+        "id": 33,
+        "name": "占星术士",
+        "gauge": "healer"
+    },
+    {
+        "id": 34,
+        "name": "武士",
+        "gauge": "melee"
+    },
+    {
+        "id": 35,
+        "name": "赤魔法师",
+        "gauge": "magical"
+    },
+    {
+        "id": 36,
+        "name": "青魔法师",
+        "gauge": "magical"
+    },
+    {
+        "id": 37,
+        "name": "绝枪战士",
+        "gauge": "tank"
+    },
+    {
+        "id": 38,
+        "name": "舞者",
+        "gauge": "physical"
+    },
+    {
+        "id": 39,
+        "name": "钐镰客",
+        "gauge": "melee"
+    },
+    {
+        "id": 40,
+        "name": "贤者",
+        "gauge": "healer"
+    }
+]
