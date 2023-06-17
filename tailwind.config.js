@@ -22,7 +22,7 @@ module.exports = {
     ],
 
     daisyui: {
-        themes: ["cupcake", "aqua"],
-        darkTheme: "aqua",
+        themes: ["cupcake", "pastel", "dracula"],
+        darkTheme: "dracula",
     }
 }

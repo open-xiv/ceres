@@ -68,6 +68,7 @@ async function exportFights(mode: string) {
     exportProgress.value = 0;
     const json: string = await invoke("to_json", {fights: fights.value});
     await writeText(json);
+    exportProgress.value = usefulFlightsNum.value;
     // animation
     jsonExportAnimation.value = true;
     setTimeout(() => {
@@ -101,10 +102,10 @@ onMounted(async () => {
 <template>
   <div :class="{ 'blur-lg': exporting, 'pointer-events-none': exporting }" class="w-auto flex flex-col space-y-2 pb-4">
     <div class="flex space-x-2">
-      <button class="w-2/12 h-12 btn btn-primary" @click="selectLogFile">选择日志</button>
+      <button class="w-2/12 h-auto btn btn-primary" @click="selectLogFile">选择日志</button>
       <div
           v-if="log_path"
-          class="alert flex whitespace-nowrap h-12 w-auto overflow-x-scroll justify-self-center items-center">
+          class="alert flex whitespace-nowrap h-fit w-auto overflow-x-scroll justify-self-center items-center">
         <span class="text-sm font-mono">{{ log_path }}</span>
       </div>
     </div>

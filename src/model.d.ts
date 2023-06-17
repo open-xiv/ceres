@@ -52,4 +52,5 @@ interface SuConfig {
 interface CeresConfig {
     notion: NotionConfig;
     su: SuConfig;
+    theme: string;
 }

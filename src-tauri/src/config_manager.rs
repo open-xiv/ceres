@@ -1,7 +1,7 @@
 use std::fs;
 use std::path::Path;
 
-use crate::model::{CeresConfig, NotionConfig, SuConfig};
+use crate::model::CeresConfig;
 
 #[tauri::command]
 pub fn read_config(cfg_dir_path: String) -> Result<CeresConfig, String> {
@@ -15,15 +15,7 @@ pub fn read_config(cfg_dir_path: String) -> Result<CeresConfig, String> {
     let config = path.join("config.json");
     if !config.exists() {
         fs::write(&config, "{}").or(Err("failed to create config file".to_string()))?;
-        let config = CeresConfig {
-            notion: NotionConfig {
-                block_id: String::from(""),
-                token: String::from(""),
-            },
-            su: SuConfig {
-                token: String::from(""),
-            },
-        };
+        let config = CeresConfig::default();
         let _ = write_config(cfg_dir_path, config.clone());
         Ok(config)
     } else {

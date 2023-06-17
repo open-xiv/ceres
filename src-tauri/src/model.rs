@@ -55,13 +55,42 @@ pub struct NotionConfig {
     pub token: String,
 }
 
+impl Default for NotionConfig {
+    fn default() -> Self {
+        Self {
+            block_id: String::from("no block id"),
+            token: String::from("invalid token"),
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SuConfig {
     pub token: String,
 }
 
+impl Default for SuConfig {
+    fn default() -> Self {
+        Self {
+            token: String::from("invalid token"),
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(default)]
 pub struct CeresConfig {
     pub notion: NotionConfig,
     pub su: SuConfig,
+    pub theme: String,
+}
+
+impl Default for CeresConfig {
+    fn default() -> Self {
+        Self {
+            notion: NotionConfig::default(),
+            su: SuConfig::default(),
+            theme: String::from("cupcake"),
+        }
+    }
 }

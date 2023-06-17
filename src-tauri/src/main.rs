@@ -3,8 +3,7 @@ all(not(debug_assertions), target_os = "windows"),
 windows_subsystem = "windows"
 )]
 
-use tauri::{CustomMenuItem, Manager, Menu, Submenu};
-use tauri::api::shell;
+use tauri::Manager;
 
 mod config_manager;
 mod export;
@@ -27,22 +26,6 @@ fn main() {
             export::to_notion,
             export::to_json,
         ])
-        .menu(tauri::Menu::os_default("Ceres").add_submenu(Submenu::new(
-            "Help",
-            Menu::with_items([
-                CustomMenuItem::new("Online Documentation", "Online Documentation").into(),
-            ]),
-        )))
-        .on_menu_event(|event| {
-            let event_name = event.menu_item_id();
-            match event_name {
-                "Online Documentation" => {
-                    let url = "https://github.com/open-xiv/ceres".to_string();
-                    shell::open(&event.window().shell_scope(), url, None).unwrap();
-                }
-                _ => {}
-            }
-        })
         .setup(|_app| {
             #[cfg(debug_assertions)]
             {
