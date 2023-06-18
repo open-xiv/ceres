@@ -13,3 +13,5 @@
 - 同步数据到 [Notion](https://notion.so) 笔记
 
 由此下载最新版本 [Releases](https://github.com/open-xiv/ceres/releases)
+
+Notion的配置教程请参考 [Notion配置教程](https://ffxiv.mcoca.dev/%E8%87%AA%E5%8A%A8%E7%A8%BB%E7%A9%97%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B)
