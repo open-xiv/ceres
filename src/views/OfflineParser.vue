@@ -2,7 +2,7 @@
 import {writeText} from "@tauri-apps/api/clipboard";
 import {open} from "@tauri-apps/api/dialog";
 import {listen} from "@tauri-apps/api/event";
-import {appDataDir, join, resolveResource} from "@tauri-apps/api/path";
+import {appDataDir, join, resolveResource, sep} from "@tauri-apps/api/path";
 import {invoke} from "@tauri-apps/api/tauri";
 import FightTable from "../components/FightTable.vue";
 import SvgIcon from "../components/SvgIcon.vue";
@@ -28,6 +28,11 @@ async function selectLogFile() {
   exportProgress.value = -1;
 }
 
+const logFileName = computed(() => {
+  const path = log_path.value;
+  const last = path.lastIndexOf(sep);
+  return path.slice(path.lastIndexOf(sep, last - 1) + 1);
+});
 
 // mark useful fights
 function setUseful(idx: number, status: boolean) {
@@ -38,7 +43,6 @@ function setUseful(idx: number, status: boolean) {
 const usefulFlightsNum = computed(() => {
   if (fights) {
     const num = fights.value.filter((fight) => fight.useful).length;
-    console.log(num);
     if (!num) {
       exportMode.value = false;
     }
@@ -47,6 +51,19 @@ const usefulFlightsNum = computed(() => {
   exportMode.value = false;
   return 0;
 });
+
+
+// refresh
+const refreshAnimation = ref(false);
+
+async function refresh() {
+  fights.value = await invoke("load_logs", {path: log_path.value, meta: meta.value});
+  exportProgress.value = -1;
+  refreshAnimation.value = true;
+  setTimeout(() => {
+    refreshAnimation.value = false;
+  }, 3000);
+}
 
 
 // export fights -> notion, json, etc.
@@ -105,14 +122,24 @@ onMounted(async () => {
       <button class="w-2/12 h-auto btn btn-primary" @click="selectLogFile">选择日志</button>
       <div
           v-if="log_path"
-          class="alert flex whitespace-nowrap h-fit w-auto overflow-x-scroll justify-self-center items-center">
-        <span class="text-sm font-mono">{{ log_path }}</span>
+          class="alert flex whitespace-nowrap h-fit w-full overflow-x-hidden justify-self-center items-center">
+        <span class="text-sm font-mono">{{ logFileName }}</span>
       </div>
+      <button
+          v-if="log_path" :class="{'btn-success': refreshAnimation}" class="btn btn-square h-auto w-1/12"
+          @click="refresh">
+        <svg-icon
+            v-if="!refreshAnimation" class="h-auto w-5" fill="none" icon-name="refresh"
+            viewBox="0 0 24 24"/>
+        <svg-icon
+            v-if="refreshAnimation" class="h-auto w-5" fill="none" icon-name="refresh-ok"
+            viewBox="0 0 24 24"/>
+      </button>
     </div>
 
     <div v-if="fights && fights.length !== 0" class="w-auto flex flex-col space-y-2">
       <div class="alert bg-secondary flex justify-self-center items-center">
-        <SvgIcon class="h-5 w-5" fill="none" icon-name="bulb" viewBox="0 0 24 24"/>
+        <svg-icon class="h-5 w-5" fill="none" icon-name="bulb" viewBox="0 0 24 24"/>
         <span>请选择需要导出的数据</span>
       </div>
       <FightTable
@@ -131,13 +158,15 @@ onMounted(async () => {
             jsonExportAnimation ? "已复制到剪贴板" : "Json"
           }}
         </button>
+        <button v-if="exportMode" class="w-2/12 h-12 btn btn-base-200" disabled @click="exportFights('subook')">酥卷
+        </button>
       </div>
     </div>
 
     <div
         v-if="fights && fights.length === 0"
         class="alert bg-base-100 flex whitespace-nowrap h-12 w-auto overflow-x-scroll justify-self-center items-center">
-      <SvgIcon class="h-5 w-5" fill="none" icon-name="slash" viewBox="0 0 24 24"/>
+      <svg-icon class="h-5 w-5" fill="none" icon-name="slash" viewBox="0 0 24 24"/>
       <span class="text-sm">无可用战斗数据</span>
     </div>
   </div>

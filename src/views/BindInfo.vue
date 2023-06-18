@@ -35,19 +35,25 @@ async function changeTheme(newTheme: string) {
   await invoke("write_config", {cfgDirPath: configPath, config: config.value});
 }
 
+
+// count times
+const countTimes = ref(0);
+
 // load config when mounted
 onBeforeMount(async () => {
   // load config
   const appDataDirPath = await appDataDir();
   const configPath = await join(appDataDirPath, "ceres");
   config.value = await invoke("read_config", {cfgDirPath: configPath});
+  // load count times
+  countTimes.value = await invoke("count_times", {config: config.value});
 });
 </script>
 
 <template>
   <div class="w-auto flex flex-col space-y-2 pb-4">
     <div
-        class="alert alert-warning flex whitespace-nowrap h-fit w-auto overflow-x-scroll justify-self-center items-center">
+        class="alert alert-warning flex whitespace-nowrap h-fit w-auto overflow-hidden justify-self-center items-center">
       <SvgIcon class="h-5 w-5" fill="none" icon-name="alert" viewBox="0 0 24 24"/>
       <div class="form-control w-52">
         <label class="cursor-pointer flex space-x-3 justify-self-center items-center">
@@ -116,6 +122,12 @@ onBeforeMount(async () => {
         <!--                @click="changeTheme(theme[1])">{{ theme[0] }}</a>-->
         <!--          </li>-->
         <!--        </ul>-->
+      </div>
+    </div>
+
+    <div v-if="countTimes!=0" class="toast m-4">
+      <div class="alert bg-base-100 backdrop-blur-sm border-secondary flex items-center">
+        <span class="text-sm font-mono">{{ "已导随 " + countTimes + " 次" }}</span>
       </div>
     </div>
   </div>

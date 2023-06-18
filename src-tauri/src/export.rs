@@ -1,7 +1,7 @@
 use serde_json::json;
 use tauri::Window;
 
-use crate::model::{FightRecord, NotionConfig};
+use crate::model::{CeresConfig, FightRecord, NotionConfig};
 
 #[tauri::command]
 pub async fn to_notion(
@@ -147,4 +147,10 @@ pub fn to_json(window: Window, fights: Vec<FightRecord>) -> Result<String, Strin
     // use event hook to update progress
     let _ = window.emit("export-progress", fights.len());
     Ok(json)
+}
+
+#[tauri::command]
+pub async fn count_times(config: CeresConfig) -> Result<usize, String> {
+    let rst = get_notion_base(&config.notion).await;
+    rst
 }

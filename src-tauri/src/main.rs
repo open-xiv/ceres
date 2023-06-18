@@ -25,6 +25,7 @@ fn main() {
             // export tools
             export::to_notion,
             export::to_json,
+            export::count_times,
         ])
         .setup(|_app| {
             #[cfg(debug_assertions)]
