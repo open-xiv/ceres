@@ -126,13 +126,13 @@ onMounted(async () => {
         <span class="text-sm font-mono">{{ logFileName }}</span>
       </div>
       <button
-          v-if="log_path" :class="{'btn-success': refreshAnimation}" class="btn btn-square h-auto w-1/12"
+          v-if="log_path" :class="{'btn-success': refreshAnimation}" class="btn btn-block h-auto w-1/12"
           @click="refresh">
         <svg-icon
-            v-if="!refreshAnimation" class="h-auto w-5" fill="none" icon-name="refresh"
+            v-if="!refreshAnimation" class="h-5 w-5" fill="none" icon-name="refresh"
             viewBox="0 0 24 24"/>
         <svg-icon
-            v-if="refreshAnimation" class="h-auto w-5" fill="none" icon-name="refresh-ok"
+            v-if="refreshAnimation" class="h-5 w-5" fill="none" icon-name="refresh-ok"
             viewBox="0 0 24 24"/>
       </button>
     </div>
