@@ -1,7 +1,7 @@
 {
   "name": "ceres",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.3",
   "scripts": {
     "dev": "RUST_BACKTRACE=1 concurrently -k \"tauri dev\" \"pnpm devtools\"",
     "build": "tauri build",
