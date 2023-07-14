@@ -41,8 +41,9 @@ interface FightRecord {
 }
 
 interface NotionConfig {
-    block_id: string;
+    page_id: string;
     token: string;
+    sum_block_id: string;
 }
 
 interface SuConfig {

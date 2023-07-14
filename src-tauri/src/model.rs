@@ -51,15 +51,17 @@ pub struct FightRecord {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct NotionConfig {
-    pub block_id: String,
+    pub page_id: String,
     pub token: String,
+    pub sum_block_id: String,
 }
 
 impl Default for NotionConfig {
     fn default() -> Self {
         Self {
-            block_id: String::from("no block id"),
+            page_id: String::from("no page id"),
             token: String::from("invalid token"),
+            sum_block_id: String::from("no sum block id"),
         }
     }
 }

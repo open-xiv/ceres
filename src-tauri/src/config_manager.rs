@@ -1,10 +1,10 @@
 use std::fs;
 use std::path::Path;
 
-use crate::model::CeresConfig;
+use crate::model::{CeresConfig, NotionConfig};
 
 #[tauri::command]
-pub fn read_config(cfg_dir_path: String) -> Result<CeresConfig, String> {
+pub async fn read_config(cfg_dir_path: String) -> Result<CeresConfig, String> {
     // check config directory: if not exists -> create
     let path = Path::new(&cfg_dir_path);
     if !path.exists() {
@@ -21,7 +21,20 @@ pub fn read_config(cfg_dir_path: String) -> Result<CeresConfig, String> {
     } else {
         let config =
             fs::read_to_string(&config).or(Err("failed to read config file".to_string()))?;
-        let config: CeresConfig = serde_json::from_str(&config).map_err(|e| e.to_string())?;
+        let mut config: CeresConfig = serde_json::from_str(&config).map_err(|e| e.to_string())?;
+
+        // notion support
+        if config.notion.token != "invalid token" {
+            let s_id = config.notion.sum_block_id.clone();
+            if s_id.is_empty() || s_id == "no sum block id" {
+                config.notion.sum_block_id = fetch_notion_sum_block_id(&config.notion)
+                    .await
+                    .map_err(|e| e.to_string())?
+                    .to_string();
+                let _ = write_config(cfg_dir_path.clone(), config.clone());
+            }
+        }
+
         Ok(config)
     }
 }
@@ -46,4 +59,43 @@ pub fn write_config(cfg_dir_path: String, config: CeresConfig) -> Result<(), Str
 
     // return
     Ok(())
+}
+
+async fn fetch_notion_sum_block_id(notion_config: &NotionConfig) -> Result<String, String> {
+    let client = reqwest::Client::new();
+
+    let rsp = client
+        .get(format!(
+            "https://api.notion.com/v1/blocks/{}/children",
+            notion_config.page_id
+        ))
+        .bearer_auth(&notion_config.token[..])
+        .header("Notion-Version", "2022-02-22")
+        .send()
+        .await
+        .map_err(|e| e.to_string())?;
+
+    let rsp = rsp.text().await.map_err(|e| e.to_string())?;
+    let rsp = serde_json::from_str::<serde_json::Value>(&rsp).map_err(|e| e.to_string())?;
+
+    // find ["results"][x]["type == callout"]
+    for block in rsp["results"]
+        .as_array()
+        .ok_or("failed to get sum block id")?
+    {
+        let b_type = block["type"].as_str().ok_or("failed to get sum block id")?;
+        if b_type == "callout" {
+            let b_text = block["callout"]["rich_text"][0]["plain_text"]
+                .as_str()
+                .ok_or("failed to get sum block id")?;
+            if b_text.starts_with("已完成稻穗") {
+                return Ok(block["id"]
+                    .as_str()
+                    .ok_or("failed to get sum block id")?
+                    .to_string());
+            }
+        }
+    }
+
+    Err("failed to get sum block id".to_string())
 }

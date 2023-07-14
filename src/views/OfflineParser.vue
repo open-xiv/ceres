@@ -173,7 +173,7 @@ onMounted(async () => {
 
   <div v-if="exporting" class="toast toast-center toast-middle">
     <div class="flex flex-col space-y-3 justify-center items-center">
-      <span class="text-lg text-mono font-bold">{{ progressNumber.toFixed(1) + "%" }}</span>
+      <span class="text-lg font-mono font-bold">{{ progressNumber.toFixed(1) + "%" }}</span>
       <progress :max="usefulFlightsNum" :value="exportProgress" class="progress w-56"/>
     </div>
   </div>

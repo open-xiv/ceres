@@ -78,7 +78,7 @@ pub async fn to_notion(
         let _ = client
             .patch(format!(
                 "https://api.notion.com/v1/blocks/{}/children",
-                notion_config.block_id
+                notion_config.page_id
             ))
             .bearer_auth(&notion_config.token[..])
             .header("Notion-Version", "2022-02-22")
@@ -101,8 +101,8 @@ async fn get_notion_base(notion_config: &NotionConfig) -> Result<usize, String> 
 
     let rsp = client
         .get(format!(
-            "https://api.notion.com/v1/pages/{}/properties/Total",
-            notion_config.block_id
+            "https://api.notion.com/v1/blocks/{}",
+            notion_config.sum_block_id
         ))
         .bearer_auth(&notion_config.token[..])
         .header("Notion-Version", "2022-02-22")
@@ -112,7 +112,16 @@ async fn get_notion_base(notion_config: &NotionConfig) -> Result<usize, String> 
 
     let rsp = rsp.text().await.map_err(|e| e.to_string())?;
     let rsp = serde_json::from_str::<serde_json::Value>(&rsp).map_err(|e| e.to_string())?;
-    let base = rsp["number"].as_i64().ok_or("failed to get base index")? as usize;
+    let dsp = rsp["callout"]["rich_text"][0]["plain_text"]
+        .as_str()
+        .unwrap_or("已完成稻穗 0 次！");
+
+    let base = dsp
+        .split(" ")
+        .nth(1)
+        .unwrap_or("0")
+        .parse::<usize>()
+        .map_err(|e| e.to_string())?;
 
     Ok(base)
 }
@@ -121,15 +130,22 @@ async fn update_notion_base(base: usize, notion_config: &NotionConfig) -> Result
     let client = reqwest::Client::new();
 
     let block = json!({
-        "properties": {
-            "Total": base
+        "callout": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": format!("已完成稻穗 {} 次！", base),
+                    }
+                }
+            ]
         }
     });
 
     let _ = client
         .patch(format!(
-            "https://api.notion.com/v1/pages/{}",
-            notion_config.block_id
+            "https://api.notion.com/v1/blocks/{}",
+            notion_config.sum_block_id
         ))
         .bearer_auth(&notion_config.token[..])
         .header("Notion-Version", "2022-02-22")

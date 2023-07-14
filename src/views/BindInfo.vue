@@ -75,7 +75,7 @@ onBeforeMount(async () => {
           <div class="flex space-x-4 items-center">
             <p class="text-sm">- Block</p>
             <input
-                v-model="config.notion.block_id" :disabled="!editable"
+                v-model="config.notion.page_id" :disabled="!editable"
                 class="input input-bordered w-full h-8 max-w-xs text-sm font-mono"
                 placeholder="Find it in notion url."
                 type="text"/>
