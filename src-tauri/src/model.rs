@@ -81,13 +81,13 @@ impl Default for SuConfig {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(default)]
-pub struct CeresConfig {
+pub struct SuMentorConfig {
     pub notion: NotionConfig,
     pub su: SuConfig,
     pub theme: String,
 }
 
-impl Default for CeresConfig {
+impl Default for SuMentorConfig {
     fn default() -> Self {
         Self {
             notion: NotionConfig::default(),

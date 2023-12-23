@@ -1,11 +1,11 @@
 [package]
-name = "ceres"
+name = "su-mentor"
 version = "0.1.0"
 description = "Log Analysis"
 authors = ["蛋卷酥"]
 license = "MIT"
-repository = "https://github.com/open-xiv/ceres"
-default-run = "ceres"
+repository = "https://github.com/open-xiv/su-mentor"
+default-run = "su-mentor"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

@@ -1,10 +1,10 @@
 use std::fs;
 use std::path::Path;
 
-use crate::model::{CeresConfig, NotionConfig};
+use crate::model::{SuMentorConfig, NotionConfig};
 
 #[tauri::command]
-pub async fn read_config(cfg_dir_path: String) -> Result<CeresConfig, String> {
+pub async fn read_config(cfg_dir_path: String) -> Result<SuMentorConfig, String> {
     // check config directory: if not exists -> create
     let path = Path::new(&cfg_dir_path);
     if !path.exists() {
@@ -15,13 +15,13 @@ pub async fn read_config(cfg_dir_path: String) -> Result<CeresConfig, String> {
     let config = path.join("config.json");
     if !config.exists() {
         fs::write(&config, "{}").or(Err("failed to create config file".to_string()))?;
-        let config = CeresConfig::default();
+        let config = SuMentorConfig::default();
         let _ = write_config(cfg_dir_path, config.clone());
         Ok(config)
     } else {
         let config =
             fs::read_to_string(&config).or(Err("failed to read config file".to_string()))?;
-        let mut config: CeresConfig = serde_json::from_str(&config).map_err(|e| e.to_string())?;
+        let mut config: SuMentorConfig = serde_json::from_str(&config).map_err(|e| e.to_string())?;
 
         // notion support
         if config.notion.token != "invalid token" {
@@ -40,7 +40,7 @@ pub async fn read_config(cfg_dir_path: String) -> Result<CeresConfig, String> {
 }
 
 #[tauri::command]
-pub fn write_config(cfg_dir_path: String, config: CeresConfig) -> Result<(), String> {
+pub fn write_config(cfg_dir_path: String, config: SuMentorConfig) -> Result<(), String> {
     // check config directory: if not exists -> create
     let path = Path::new(&cfg_dir_path);
     if !path.exists() {

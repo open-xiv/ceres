@@ -1,7 +1,7 @@
 use serde_json::json;
 use tauri::Window;
 
-use crate::model::{CeresConfig, FightRecord, NotionConfig};
+use crate::model::{SuMentorConfig, FightRecord, NotionConfig};
 
 #[tauri::command]
 pub async fn to_notion(
@@ -166,7 +166,7 @@ pub fn to_json(window: Window, fights: Vec<FightRecord>) -> Result<String, Strin
 }
 
 #[tauri::command]
-pub async fn count_times(config: CeresConfig) -> Result<usize, String> {
+pub async fn count_times(config: SuMentorConfig) -> Result<usize, String> {
     let rst = get_notion_base(&config.notion).await;
     rst
 }

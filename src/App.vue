@@ -3,12 +3,12 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 
 import { RouterView } from "vue-router";
-import CeresMenu from "./components/CeresMenu.vue";
+import SuMentorMenu from "./components/SuMentorMenu.vue";
 </script>
 
 <template>
   <div class="m-4 flex flex-col space-y-4">
-    <CeresMenu/>
+    <SuMentorMenu/>
     <RouterView/>
   </div>
 </template>

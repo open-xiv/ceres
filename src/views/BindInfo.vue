@@ -18,7 +18,7 @@ async function setEditable(status: boolean) {
   else {
     // save config
     const appDataDirPath = await appDataDir();
-    const configPath = await join(appDataDirPath, "ceres");
+    const configPath = await join(appDataDirPath, "su-mentor");
     await invoke("write_config", {cfgDirPath: configPath, config: config.value});
   }
 }
@@ -31,7 +31,7 @@ async function changeTheme(newTheme: string) {
   config.value.theme = newTheme;
   // save config
   const appDataDirPath = await appDataDir();
-  const configPath = await join(appDataDirPath, "ceres");
+  const configPath = await join(appDataDirPath, "su-mentor");
   await invoke("write_config", {cfgDirPath: configPath, config: config.value});
 }
 
@@ -43,7 +43,7 @@ const countTimes = ref(0);
 onBeforeMount(async () => {
   // load config
   const appDataDirPath = await appDataDir();
-  const configPath = await join(appDataDirPath, "ceres");
+  const configPath = await join(appDataDirPath, "su-mentor");
   config.value = await invoke("read_config", {cfgDirPath: configPath});
   // load count times
   countTimes.value = await invoke("count_times", {config: config.value});

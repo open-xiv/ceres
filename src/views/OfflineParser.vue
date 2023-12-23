@@ -76,7 +76,7 @@ async function exportFights(mode: string) {
   if (mode === "notion") {
     // read notion config
     const appDataDirPath = await appDataDir();
-    const configPath = await join(appDataDirPath, "ceres");
+    const configPath = await join(appDataDirPath, "su-mentor");
     config.value = await invoke("read_config", {cfgDirPath: configPath});
     // notion export
     exportProgress.value = 0;

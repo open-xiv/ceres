@@ -50,7 +50,7 @@ interface SuConfig {
     token: string;
 }
 
-interface CeresConfig {
+interface SuMentorConfig {
     notion: NotionConfig;
     su: SuConfig;
     theme: string;
