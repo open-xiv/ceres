@@ -10,10 +10,9 @@ import SvgIcon from "../components/SvgIcon.vue";
 // load meta data
 const meta = ref();
 
-
 // logs reader: log -> fights
 const log_path = ref("");
-const fights = ref();
+const fights = ref<FightRecord[]>([]);
 
 async function selectLogFile() {
   const selected = await open({
@@ -126,7 +125,7 @@ onMounted(async () => {
         <span class="text-sm font-mono">{{ logFileName }}</span>
       </div>
       <button
-          v-if="log_path" :class="{'btn-success': refreshAnimation}" class="btn btn-block h-auto w-1/12"
+          v-if="log_path" :class="{'btn-success': refreshAnimation}" class="btn btn-accent h-auto w-1/12"
           @click="refresh">
         <svg-icon
             v-if="!refreshAnimation" class="h-5 w-5" fill="none" icon-name="refresh"
@@ -143,7 +142,7 @@ onMounted(async () => {
         <span>请选择需要导出的数据</span>
       </div>
       <FightTable
-          v-for="(fight, f_idx) in fights" :key="fight" :fight="fight" :idx="f_idx as number"
+          v-for="(fight, f_idx) in fights" :key="fight.area.op.timestamp" :fight="fight" :idx="f_idx as number"
           @emit-set-useful="setUseful"/>
       <div class="flex space-x-2">
         <button
@@ -158,13 +157,13 @@ onMounted(async () => {
             jsonExportAnimation ? "已复制到剪贴板" : "Json"
           }}
         </button>
-        <button v-if="exportMode" class="w-2/12 h-12 btn btn-base-200" disabled @click="exportFights('subook')">酥卷
+        <button v-if="exportMode" class="w-2/12 h-12 btn btn-base-200" disabled @click="exportFights('sumemo')">酥卷
         </button>
       </div>
     </div>
 
     <div
-        v-if="fights && fights.length === 0"
+        v-if="fights && fights.length === 0 && log_path"
         class="alert bg-base-100 flex whitespace-nowrap h-12 w-auto overflow-x-scroll justify-self-center items-center">
       <svg-icon class="h-5 w-5" fill="none" icon-name="slash" viewBox="0 0 24 24"/>
       <span class="text-sm">无可用战斗数据</span>

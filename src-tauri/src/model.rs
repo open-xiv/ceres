@@ -85,6 +85,7 @@ pub struct SuMentorConfig {
     pub notion: NotionConfig,
     pub su: SuConfig,
     pub theme: String,
+    pub log_folder: String,
 }
 
 impl Default for SuMentorConfig {
@@ -93,6 +94,7 @@ impl Default for SuMentorConfig {
             notion: NotionConfig::default(),
             su: SuConfig::default(),
             theme: String::from("cupcake"),
+            log_folder: String::from(""),
         }
     }
 }

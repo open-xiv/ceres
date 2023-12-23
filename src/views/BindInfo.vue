@@ -4,7 +4,7 @@ import {invoke} from "@tauri-apps/api/tauri";
 import SvgIcon from "../components/SvgIcon.vue";
 
 // config
-const config = ref();
+const config = ref<SuMentorConfig>();
 
 // config lock
 const editable = ref(false);
@@ -23,12 +23,11 @@ async function setEditable(status: boolean) {
   }
 }
 
-
 // change theme
 const themes = [["蛋糕", "cupcake"], ["蜡笔", "pastel"], ["夜晚", "dracula"]];
 
 async function changeTheme(newTheme: string) {
-  config.value.theme = newTheme;
+  config.value?.theme && (config.value.theme = newTheme);
   // save config
   const appDataDirPath = await appDataDir();
   const configPath = await join(appDataDirPath, "su-mentor");

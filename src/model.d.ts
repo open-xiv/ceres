@@ -51,7 +51,13 @@ interface SuConfig {
 }
 
 interface SuMentorConfig {
+    // service related
     notion: NotionConfig;
     su: SuConfig;
+
+    // act log related
+    log_folder: string;
+
+    // su mentor related
     theme: string;
 }
