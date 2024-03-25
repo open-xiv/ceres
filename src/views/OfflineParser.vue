@@ -23,7 +23,7 @@ async function selectLogFile() {
     return;
   }
   log_path.value = typeof selected === "string" ? selected : selected[0];
-  fights.value = await invoke("load_logs", {path: selected, meta: meta.value});
+  fights.value = await invoke("load_act_log", {path: selected, meta: meta.value});
   exportProgress.value = -1;
 }
 
@@ -56,7 +56,7 @@ const usefulFlightsNum = computed(() => {
 const refreshAnimation = ref(false);
 
 async function refresh() {
-  fights.value = await invoke("load_logs", {path: log_path.value, meta: meta.value});
+  fights.value = await invoke("load_act_log", {path: log_path.value, meta: meta.value});
   exportProgress.value = -1;
   refreshAnimation.value = true;
   setTimeout(() => {

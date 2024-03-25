@@ -9,7 +9,7 @@ use chrono::{DateTime, Utc};
 use crate::model::{Area, FightRecord, Meta, Oper, Player};
 
 #[tauri::command]
-pub fn load_logs(path: String, meta: Meta) -> Result<Vec<FightRecord>, String> {
+pub fn load_act_log(path: String, meta: Meta) -> Result<Vec<FightRecord>, String> {
     let path = Path::new(&path);
 
     // dict -> load last file; file -> load
@@ -31,15 +31,15 @@ pub fn load_logs(path: String, meta: Meta) -> Result<Vec<FightRecord>, String> {
             }
         }
         match latest_entry {
-            Some(entry) => parse_logs(&entry.path(), &meta).map_err(|e| format!("{}", e)),
+            Some(entry) => parse(&entry.path(), &meta).map_err(|e| format!("{}", e)),
             None => Err("no file in the directory".to_string()),
         }
     } else {
-        parse_logs(&path, &meta).map_err(|e| format!("{}", e))
+        parse(&path, &meta).map_err(|e| format!("{}", e))
     }
 }
 
-fn parse_logs(path: &Path, meta: &Meta) -> Result<Vec<FightRecord>, String> {
+fn parse(path: &Path, meta: &Meta) -> Result<Vec<FightRecord>, String> {
     let file = File::open(path).unwrap();
     let reader = BufReader::new(file);
 

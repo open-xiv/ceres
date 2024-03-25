@@ -31,7 +31,7 @@ async function updateLogFolder() {
   const configPath = await join(appDataDirPath, "su-mentor");
   await invoke("write_config", {cfgDirPath: configPath, config: config.value});
   // load fights
-  fights.value = await invoke("load_logs", {path: config.value?.log_folder, meta: meta.value});
+  fights.value = await invoke("load_act_log", {path: config.value?.log_folder, meta: meta.value});
   exportProgress.value = -1;
 }
 
@@ -59,7 +59,7 @@ const usefulFlightsNum = computed(() => {
 // const refreshAnimation = ref(false);
 
 async function refreshExport() {
-  fights.value = await invoke("load_logs", {path: config.value?.log_folder, meta: meta.value});
+  fights.value = await invoke("load_act_log", {path: config.value?.log_folder, meta: meta.value});
   exportProgress.value = -1;
   lastExportTime.value = Date.now();
 }
@@ -135,7 +135,7 @@ onBeforeMount(async () => {
   // if log folder is set, load fights
   if (config.value?.log_folder) {
     // load fights
-    fights.value = await invoke("load_logs", {path: config.value?.log_folder, meta: meta.value});
+    fights.value = await invoke("load_act_log", {path: config.value?.log_folder, meta: meta.value});
     exportProgress.value = -1;
   }
 });
@@ -147,7 +147,7 @@ onBeforeMount(async () => {
     <div class="alert alert-warning w-auto">
       <SvgIcon class="h-5 w-5" fill="none" icon-name="git" viewBox="0 0 24 24"/>
       <span class="text-sm"> 这是一个正在开发的页面 稳定性可能有所下降 </span>
-      <span class="text-sm font-mono"> by 酥 Dec.22.2023 </span>
+      <span class="text-sm font-mono"> by 酥 Mar.24.2024 </span>
     </div>
 
     <div class="flex space-x-2">

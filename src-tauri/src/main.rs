@@ -1,27 +1,31 @@
 #![cfg_attr(
-all(not(debug_assertions), target_os = "windows"),
-windows_subsystem = "windows"
+    all(not(debug_assertions), target_os = "windows"),
+    windows_subsystem = "windows"
 )]
 
+use once_cell::sync::Lazy;
+use reqwest::Client;
 use tauri::Manager;
 
-mod config_manager;
+mod apis;
 mod export;
-mod logs_reader;
-mod meta_loader;
 mod model;
+mod parser;
+mod tools;
+
+pub static GLOBAL_CLIENT: Lazy<Client> = Lazy::new(|| Client::new());
 
 fn main() {
     let ctx = tauri::generate_context!();
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             // init meta
-            meta_loader::load_meta,
+            parser::meta::load_meta,
             // config manager
-            config_manager::read_config,
-            config_manager::write_config,
+            parser::config::read_config,
+            parser::config::write_config,
             // logs analysis
-            logs_reader::load_logs,
+            parser::actlog::load_act_log,
             // export tools
             export::to_notion,
             export::to_json,

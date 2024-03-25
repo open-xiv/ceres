@@ -1,7 +1,7 @@
 use std::fs;
 use std::path::Path;
 
-use super::model;
+use crate::model;
 
 #[tauri::command]
 pub fn load_meta(instances_path: String, jobs_path: String) -> Result<model::Meta, String> {
