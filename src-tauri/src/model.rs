@@ -37,6 +37,7 @@ pub struct Player {
     pub op: Oper,
     pub id: String,
     pub name: String,
+    pub server: String,
     pub job: Job,
     pub level: u32,
 }

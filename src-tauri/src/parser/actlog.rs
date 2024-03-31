@@ -40,7 +40,10 @@ pub fn load_act_log(path: String, meta: Meta) -> Result<Vec<FightRecord>, String
 }
 
 fn parse(path: &Path, meta: &Meta) -> Result<Vec<FightRecord>, String> {
-    let file = File::open(path).unwrap();
+    let file = match File::open(path) {
+        Ok(file) => file,
+        Err(error) => return Err(format!("Failed to open the file: {:?}", error)),
+    };
     let reader = BufReader::new(file);
 
     let mut fights: Vec<FightRecord> = Vec::new();
@@ -116,6 +119,7 @@ fn parse(path: &Path, meta: &Meta) -> Result<Vec<FightRecord>, String> {
                 op,
                 id: parts[2].to_string(),
                 name: parts[3].to_string(),
+                server: parts[8].to_string(),
                 job: job.clone(),
                 level,
             };
