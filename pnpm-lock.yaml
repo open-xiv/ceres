@@ -8,6 +8,9 @@ dependencies:
   '@tauri-apps/api':
     specifier: 1.3.0
     version: 1.3.0
+  '@tauri-apps/plugin-log':
+    specifier: 2.0.0-beta.2
+    version: 2.0.0-beta.2
   daisyui:
     specifier: ^3.9.4
     version: 3.9.4
@@ -846,6 +849,11 @@ packages:
     engines: {node: '>= 14.6.0', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
     dev: false
 
+  /@tauri-apps/api@2.0.0-beta.4:
+    resolution: {integrity: sha512-Nxtj28NYUo5iwYkpYslxmOPkdI2WkELU2e3UH9nbJm9Ydki2CQwJVGQxx4EANtdZcMNsEsUzRqaDTvEUYH1l6w==}
+    engines: {node: '>= 18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
+    dev: false
+
   /@tauri-apps/cli-darwin-arm64@1.3.1:
     resolution: {integrity: sha512-QlepYVPgOgspcwA/u4kGG4ZUijlXfdRtno00zEy+LxinN/IRXtk+6ErVtsmoLi1ZC9WbuMwzAcsRvqsD+RtNAg==}
     engines: {node: '>= 10'}
@@ -942,6 +950,12 @@ packages:
       '@tauri-apps/cli-win32-ia32-msvc': 1.3.1
       '@tauri-apps/cli-win32-x64-msvc': 1.3.1
     dev: true
+
+  /@tauri-apps/plugin-log@2.0.0-beta.2:
+    resolution: {integrity: sha512-UiHQ5uMocYKRo+YbMd7L+SY4JD4wWWWtp+y/+RrUDzrXozISinPZEoEJHTuOJ0oXC4YLB7zyiY38sTzXeDa+HA==}
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.4
+    dev: false
 
   /@trysound/sax@0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}

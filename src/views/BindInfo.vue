@@ -99,9 +99,9 @@ onBeforeMount(async () => {
         </div>
         <div class="flex flex-col font-mono space-y-2">
           <div class="flex space-x-4 items-center">
-            <p class="text-sm">- Token</p>
+            <p class="text-sm">- Key</p>
             <input
-                v-model="config.su.token" :disabled="!editable"
+                v-model="config.su.key" :disabled="!editable"
                 class="input input-bordered w-full h-8 max-w-sm text-sm font-mono"
                 placeholder="Find it in notion url."
                 type="text"/>

@@ -47,6 +47,7 @@ interface NotionConfig {
 }
 
 interface SuConfig {
+    key: string;
     token: string;
 }
 

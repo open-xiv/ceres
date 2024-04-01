@@ -1,6 +1,6 @@
 [package]
 name = "su-mentor"
-version = "0.2.1"
+version = "0.2.2"
 description = "Log Analysis Coded by Su with Love."
 authors = ["蛋卷酥"]
 license = "MIT"

@@ -15,6 +15,7 @@ mod tools;
 
 pub static GLOBAL_CLIENT: Lazy<Client> = Lazy::new(|| Client::new());
 
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
 fn main() {
     let ctx = tauri::generate_context!();
     tauri::Builder::default()
@@ -29,6 +30,7 @@ fn main() {
             // export tools
             export::to_notion,
             export::to_json,
+            export::to_subook,
             export::count_times,
         ])
         .setup(|_app| {

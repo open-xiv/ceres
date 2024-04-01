@@ -69,12 +69,14 @@ impl Default for NotionConfig {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SuConfig {
+    pub key: String,
     pub token: String,
 }
 
 impl Default for SuConfig {
     fn default() -> Self {
         Self {
+            key: String::from("invalid key"),
             token: String::from("invalid token"),
         }
     }

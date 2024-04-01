@@ -90,6 +90,14 @@ async function exportFights(mode: string) {
     setTimeout(() => {
       jsonExportAnimation.value = false;
     }, 4000);
+  } else if (mode === "subook") {
+    // read subook config
+    const appDataDirPath = await appDataDir();
+    const configPath = await join(appDataDirPath, "su-mentor");
+    config.value = await invoke("read_config", {cfgDirPath: configPath});
+    // subook export
+    exportProgress.value = 0;
+    await invoke("to_subook", {fights: fights.value, suConfig: config.value.su});
   }
 }
 
@@ -157,8 +165,7 @@ onMounted(async () => {
             jsonExportAnimation ? "已复制到剪贴板" : "Json"
           }}
         </button>
-        <button v-if="exportMode" class="w-2/12 h-12 btn btn-base-200" disabled @click="exportFights('sumemo')">酥卷
-        </button>
+        <button v-if="exportMode" class="w-2/12 h-12 btn btn-base-200" @click="exportFights('subook')">酥卷</button>
       </div>
     </div>
 
